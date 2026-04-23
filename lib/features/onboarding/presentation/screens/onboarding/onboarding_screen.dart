@@ -1,3 +1,4 @@
+import 'package:cal_scanner/app_widgets/buttons/app_button.dart';
 import 'package:cal_scanner/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:cal_scanner/features/onboarding/presentation/screens/onboarding/widgets/activity_widget.dart';
 import 'package:cal_scanner/features/onboarding/presentation/screens/onboarding/widgets/age_widget.dart';
@@ -84,38 +85,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
             bottom: MediaQuery.of(context).viewInsets.bottom + 20,
             top: 20,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 48,
-                width: 120,
-                child: TextButton(
-                  onPressed: _currentPage > 0
-                      ? () => _pageController.previousPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        )
-                      : null,
-                  child: Text(
-                    _currentPage > 0 ? 'Back' : '',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 48,
-                width: 120,
-                child: ElevatedButton(
-                  onPressed: _nextPage,
-                  child: Text(
-                    _currentPage == 6 ? 'Finish' : 'Next',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          child: AppButton(text: 'Continue', onTap: () {}),
         ),
       ),
     );

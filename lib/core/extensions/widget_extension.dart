@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 extension WidgetExtension on Widget {
-  /// Wrap the widget with Padding
   Widget paddingAll(double value) =>
       Padding(padding: EdgeInsets.all(value), child: this);
 
@@ -28,26 +27,4 @@ extension WidgetExtension on Widget {
     ),
     child: this,
   );
-
-  /// Wrap the widget with Opacity
-  Widget opacity(double value) => Opacity(opacity: value, child: this);
-
-  /// Wrap the widget with Visibility
-  Widget visible(bool visible, {Widget fallback = const SizedBox.shrink()}) =>
-      visible ? this : fallback;
-
-  /// Wrap the widget with Center
-  Widget get center => Center(child: this);
-
-  /// Wrap the widget with Expanded
-  Widget get expanded => Expanded(child: this);
-
-  /// Wrap the widget with FittedBox
-  Widget get fitted => FittedBox(child: this);
-
-  /// Wrap the widget with Hero
-  Widget hero(Object tag) => Hero(tag: tag, child: this);
-
-  /// Wrap the widget with InkWell
-  Widget tooltip(String message) => Tooltip(message: message, child: this);
 }

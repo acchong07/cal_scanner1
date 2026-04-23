@@ -1,3 +1,4 @@
+import 'package:cal_scanner/core/extensions/num_extension.dart';
 import 'package:cal_scanner/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:cal_scanner/theme/app_typography.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +12,19 @@ class GenderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            'What is your\n biological sex',
-            style: AppTypography.headlineLarge,
-          ),
+        Text(
+          'What is your\n biological sex',
+          style: AppTypography.headlineLarge,
         ),
+        10.kH,
+
+        Text(
+          'This helps us calculate your metabolism',
+          style: AppTypography.bodyMedium,
+        ),
+
         BlocBuilder<OnboardingCubit, OnboardingState>(
           builder: (context, state) {
             return DropdownButton<String>(

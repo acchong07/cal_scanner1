@@ -25,7 +25,7 @@ class AppTypography {
   static const double _sm = 12.0;
   static const double _md = 14.0;
   static const double _lg = 16.0;
-  static const double _xl = 18.0;
+  static const double _xl = 24.0;
   static const double _2xl = 22.0;
   static const double _3xl = 28.0;
   static const double _4xl = 36.0;
@@ -53,7 +53,7 @@ class AppTypography {
 
   // ─── Headline ──────────────────────────────────────────────
   static TextStyle get headlineLarge => _font(
-    fontSize: _2xl,
+    fontSize: 30,
     fontWeight: FontWeight.w700,
     letterSpacing: -0.25,
     height: 1.3,
