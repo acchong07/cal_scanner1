@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
-import '../../core/routes/app_routes.dart';
-import '../../imports/imports.dart';
+import '../../../../core/routes/app_routes.dart';
+import '../../../../imports/imports.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

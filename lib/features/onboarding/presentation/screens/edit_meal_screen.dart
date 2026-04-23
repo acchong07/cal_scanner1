@@ -6,10 +6,7 @@ import '../cubit/food_log_cubit.dart';
 class EditMealScreen extends StatefulWidget {
   final FoodItem meal;
 
-  const EditMealScreen({
-    super.key,
-    required this.meal,
-  });
+  const EditMealScreen({super.key, required this.meal});
 
   @override
   State<EditMealScreen> createState() => _EditMealScreenState();
@@ -48,42 +45,58 @@ class _EditMealScreenState extends State<EditMealScreen> {
             TextField(
               decoration: InputDecoration(labelText: 'Meal Name'),
               controller: TextEditingController(text: editableMeal.name),
-              onChanged: (value) => editableMeal = editableMeal.copyWith(name: value),
+              onChanged: (value) =>
+                  editableMeal = editableMeal.copyWith(name: value),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Calories (kcal)'),
               keyboardType: TextInputType.number,
-              controller: TextEditingController(text: editableMeal.calories.toStringAsFixed(1)),
-              onChanged: (value) =>
-                  editableMeal = editableMeal.copyWith(calories: double.tryParse(value) ?? 0.0),
+              controller: TextEditingController(
+                text: editableMeal.calories.toStringAsFixed(1),
+              ),
+              onChanged: (value) => editableMeal = editableMeal.copyWith(
+                calories: double.tryParse(value) ?? 0.0,
+              ),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Protein (g)'),
               keyboardType: TextInputType.number,
-              controller: TextEditingController(text: editableMeal.protein.toStringAsFixed(1)),
-              onChanged: (value) =>
-                  editableMeal = editableMeal.copyWith(protein: double.tryParse(value) ?? 0.0),
+              controller: TextEditingController(
+                text: editableMeal.protein.toStringAsFixed(1),
+              ),
+              onChanged: (value) => editableMeal = editableMeal.copyWith(
+                protein: double.tryParse(value) ?? 0.0,
+              ),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Carbs (g)'),
               keyboardType: TextInputType.number,
-              controller: TextEditingController(text: editableMeal.carbs.toStringAsFixed(1)),
-              onChanged: (value) =>
-                  editableMeal = editableMeal.copyWith(carbs: double.tryParse(value) ?? 0.0),
+              controller: TextEditingController(
+                text: editableMeal.carbs.toStringAsFixed(1),
+              ),
+              onChanged: (value) => editableMeal = editableMeal.copyWith(
+                carbs: double.tryParse(value) ?? 0.0,
+              ),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Fat (g)'),
               keyboardType: TextInputType.number,
-              controller: TextEditingController(text: editableMeal.fat.toStringAsFixed(1)),
-              onChanged: (value) =>
-                  editableMeal = editableMeal.copyWith(fat: double.tryParse(value) ?? 0.0),
+              controller: TextEditingController(
+                text: editableMeal.fat.toStringAsFixed(1),
+              ),
+              onChanged: (value) => editableMeal = editableMeal.copyWith(
+                fat: double.tryParse(value) ?? 0.0,
+              ),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Quantity (g)'),
               keyboardType: TextInputType.number,
-              controller: TextEditingController(text: editableMeal.quantity.toStringAsFixed(1)),
-              onChanged: (value) =>
-                  editableMeal = editableMeal.copyWith(quantity: double.tryParse(value) ?? 0.0),
+              controller: TextEditingController(
+                text: editableMeal.quantity.toStringAsFixed(1),
+              ),
+              onChanged: (value) => editableMeal = editableMeal.copyWith(
+                quantity: double.tryParse(value) ?? 0.0,
+              ),
             ),
           ],
         ),

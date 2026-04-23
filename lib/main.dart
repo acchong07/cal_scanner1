@@ -1,10 +1,12 @@
 import 'package:cal_scanner/core/routes/router.dart';
+import 'package:cal_scanner/features/onboarding/presentation/cubit/onboarding_cubit.dart'
+    show OnboardingCubit;
 import 'package:go_router/go_router.dart';
 
-import 'data/repositories/food_repository.dart';
-import 'data/services/food_service.dart';
+import 'features/onboarding/data/repositories/food_repository.dart';
+import 'features/onboarding/data/services/food_service.dart';
 import 'imports/imports.dart';
-import 'presentation/cubit/food_log_cubit.dart';
+import 'features/onboarding/presentation/cubit/food_log_cubit.dart';
 import 'theme/theme.dart';
 
 Future<void> _loadEnvironmentFile() async {
@@ -42,8 +44,14 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return BlocProvider(
-          create: (context) => FoodLogCubit(foodRepository)..loadDailyLog(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => FoodLogCubit(foodRepository)..loadDailyLog(),
+            ),
+            BlocProvider(create: (context) => OnboardingCubit()),
+          ],
+
           child: MaterialApp.router(
             routerConfig: router,
             theme: buildLightTheme(),

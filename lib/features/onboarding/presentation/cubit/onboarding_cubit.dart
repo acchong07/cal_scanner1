@@ -1,0 +1,58 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'onboarding_state.dart';
+import '../../data/local/preference_manager.dart';
+import '../../data/models/user_data.dart';
+import '../../../../../core/utils/calorie_calculator.dart';
+
+class OnboardingCubit extends Cubit<OnboardingState> {
+  OnboardingCubit() : super(const OnboardingState());
+
+  void updateWeight(double value) => emit(state.copyWith(weight: value));
+  void updateHeight(double value) => emit(state.copyWith(height: value));
+  void updateAge(int value) => emit(state.copyWith(age: value));
+  void updateActivityLevel(String value) =>
+      emit(state.copyWith(activityLevel: value));
+  void updateGender(String value) => emit(state.copyWith(gender: value));
+  void updateGoal(String value) => emit(state.copyWith(userGoal: value));
+
+  Future<void> saveAndCalculate() async {
+    final maintenance = CalorieCalculator.fallbackEstimateCalories(
+      weight: state.weight!,
+      height: state.height!,
+      age: state.age!,
+      activityLevel: state.activityLevel!,
+      gender: state.gender!,
+    );
+
+    final adjusted = CalorieCalculator.calculateCaloriesBasedOnGoal(
+      maintenanceCalories: maintenance,
+      goal: state.userGoal!,
+    );
+
+    final macros = CalorieCalculator.calculateMacroGoals(
+      calories: adjusted,
+      goal: state.userGoal!,
+    );
+
+    emit(state.copyWith(estimatedCalories: adjusted));
+
+    final userData = UserData(
+      weight: state.weight!,
+      height: state.height!,
+      age: state.age!,
+      activityLevel: state.activityLevel!,
+      gender: state.gender!,
+      goal: state.userGoal!,
+      estimatedCalories: adjusted,
+      proteinGoal: macros['proteinGoal']!,
+      fatGoal: macros['fatGoal']!,
+      carbsGoal: macros['carbsGoal']!,
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+    final prefManager = PreferenceManager(prefs);
+    await prefManager.saveUserData(userData);
+    await prefs.setBool('onboarding_complete', true);
+  }
+}

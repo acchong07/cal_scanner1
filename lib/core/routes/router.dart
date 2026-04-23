@@ -1,12 +1,12 @@
-import 'package:cal_scanner/presentation/screens/graph_screen.dart';
-import 'package:cal_scanner/presentation/screens/splash.dart';
+import 'package:cal_scanner/features/onboarding/presentation/screens/graph_screen.dart';
+import 'package:cal_scanner/features/onboarding/presentation/screens/splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../presentation/screens/home_screen.dart';
-import '../../presentation/screens/main_screen.dart';
-import '../../presentation/screens/onboarding_screen.dart';
-import '../../presentation/screens/settings_screen.dart';
+import '../../features/onboarding/presentation/screens/home_screen.dart';
+import '../../features/onboarding/presentation/screens/main_screen.dart';
+import '../../features/onboarding/presentation/screens/onboarding/onboarding_screen.dart';
+import '../../features/onboarding/presentation/screens/settings_screen.dart';
 import 'app_routes.dart';
 
 class AppRouter {
