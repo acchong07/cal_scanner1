@@ -104,7 +104,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
         children: const [
           GenderWidget(),
           AgeWidget(),
-          HeightWidget(),
+          HeightWeightWidget(),
           WeightWidget(),
           ActivityWidget(),
           HealthGoalWidget(),
