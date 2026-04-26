@@ -1,12 +1,11 @@
 import 'package:cal_scanner/core/extensions/num_extension.dart';
+import 'package:cal_scanner/features/onboarding/presentation/cubit/onboarding_cubit.dart';
+import 'package:cal_scanner/features/onboarding/presentation/cubit/onboarding_state.dart';
 import 'package:cal_scanner/imports/imports.dart';
 import 'package:cal_scanner/theme/app_colors.dart';
 import 'package:cal_scanner/theme/app_typography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../cubit/onboarding_cubit.dart';
-import '../../../cubit/onboarding_state.dart';
 
 class HealthGoalWidget extends StatelessWidget {
   const HealthGoalWidget({super.key});

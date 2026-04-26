@@ -1,7 +1,7 @@
+import 'package:cal_scanner/features/onboarding/presentation/cubit/food_log_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubit/food_log_cubit.dart';
 
 class GraphScreen extends StatelessWidget {
   const GraphScreen({super.key});

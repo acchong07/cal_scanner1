@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../data/local/preference_manager.dart';
-import '../../data/models/user_data.dart';
+import '../../../onboarding/data/local/preference_manager.dart';
+import '../../../onboarding/data/models/user_data.dart';
 import 'macro_indicator.dart';
 
 class DailyTracker extends StatefulWidget {

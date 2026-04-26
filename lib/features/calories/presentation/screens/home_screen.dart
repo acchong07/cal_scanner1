@@ -1,8 +1,8 @@
+import 'package:cal_scanner/features/onboarding/presentation/cubit/food_log_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import '../cubit/food_log_cubit.dart';
 import '../widgets/daily_tracker.dart';
 import '../widgets/meal_list.dart';
 import '../widgets/alert_message_widget.dart';

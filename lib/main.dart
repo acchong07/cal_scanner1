@@ -3,8 +3,8 @@ import 'package:cal_scanner/core/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'features/onboarding/data/repositories/food_repository.dart';
-import 'features/onboarding/data/services/food_service.dart';
+import 'features/calories/data/repositories/food_repository.dart';
+import 'features/calories/data/services/food_service.dart';
 import 'features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'imports/imports.dart';
 import 'features/onboarding/presentation/cubit/food_log_cubit.dart';

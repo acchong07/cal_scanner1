@@ -1,7 +1,7 @@
+import 'package:cal_scanner/features/onboarding/presentation/cubit/food_log_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../calories/data/models/food_item.dart';
-import '../cubit/food_log_cubit.dart';
 
 class EditMealScreen extends StatefulWidget {
   final FoodItem meal;
