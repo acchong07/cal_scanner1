@@ -1,61 +1,26 @@
 import 'dart:io';
 
+import 'package:cal_scanner/features/calories/presentation/cubit/food_log_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../data/models/food_item.dart';
 import '../../data/repositories/food_repository.dart';
 
-class FoodLogState {
-  final List<FoodItem> meals;
-  final double totalCalories;
-  final double totalProtein;
-  final double totalCarbs;
-  final double totalFat;
-  final List<double> weeklyData;
-  final bool isLoading;
-  final String? error;
-  final String? successMessage; // New field for success messages
-
-  const FoodLogState({
-    this.meals = const [],
-    this.totalCalories = 0,
-    this.totalProtein = 0,
-    this.totalCarbs = 0,
-    this.totalFat = 0,
-    this.weeklyData = const [],
-    this.isLoading = false,
-    this.error,
-    this.successMessage,
-  });
-
-  FoodLogState copyWith({
-    List<FoodItem>? meals,
-    double? totalCalories,
-    double? totalProtein,
-    double? totalCarbs,
-    double? totalFat,
-    List<double>? weeklyData,
-    bool? isLoading,
-    String? error,
-    String? successMessage,
-  }) {
-    return FoodLogState(
-      meals: meals ?? this.meals,
-      totalCalories: totalCalories ?? this.totalCalories,
-      totalProtein: totalProtein ?? this.totalProtein,
-      totalCarbs: totalCarbs ?? this.totalCarbs,
-      totalFat: totalFat ?? this.totalFat,
-      weeklyData: weeklyData ?? this.weeklyData,
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      successMessage: successMessage ?? this.successMessage,
-    );
-  }
-}
-
 class FoodLogCubit extends Cubit<FoodLogState> {
   final FoodRepository _repository;
+  final ImagePicker _picker;
+  FoodLogCubit(this._repository, [ImagePicker? picker])
+    : _picker = picker ?? ImagePicker(),
+      super(FoodLogState());
 
-  FoodLogCubit(this._repository) : super(FoodLogState());
+  Future<void> pickAndScanImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    if (pickedFile == null) return;
+
+    final image = File(pickedFile.path);
+    emit(state.copyWith(selectedImage: image));
+    await addMealFromImage(image);
+  }
 
   Future<void> loadDailyLog() async {
     emit(state.copyWith(isLoading: true));

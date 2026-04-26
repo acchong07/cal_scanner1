@@ -1,6 +1,4 @@
-import 'package:cal_scanner/features/calories/presentation/screens/graph_screen.dart';
 import 'package:cal_scanner/features/calories/presentation/screens/home_screen.dart';
-import 'package:cal_scanner/features/calories/presentation/screens/main_screen.dart';
 import 'package:cal_scanner/features/calories/presentation/screens/settings_screen.dart';
 import 'package:cal_scanner/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:cal_scanner/features/onboarding/presentation/screens/splash.dart';
@@ -16,7 +14,7 @@ class AppRouter {
   AppRouter({required this.showOnboarding, required this.prefs});
 
   late final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.splash, // 👈 always start at splash
+    initialLocation: AppRoutes.splash,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -29,18 +27,14 @@ class AppRouter {
         builder: (context, state) => const OnboardingScreen(),
       ),
       ShellRoute(
-        builder: (context, state, child) => MainScreen(child: child),
+        builder: (context, state, child) => HomeScreen(child: child),
         routes: [
           GoRoute(
             path: AppRoutes.main,
             name: AppRoutes.main,
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => HomeScreen(),
           ),
-          GoRoute(
-            path: AppRoutes.graph,
-            name: AppRoutes.graph,
-            builder: (context, state) => const GraphScreen(),
-          ),
+
           GoRoute(
             path: AppRoutes.settings,
             name: AppRoutes.settings,
@@ -54,7 +48,6 @@ class AppRouter {
       final location = state.matchedLocation;
       final isSplash = location == AppRoutes.splash;
 
-      // Let splash handle its own navigation — don't redirect away from it
       if (isSplash) return null;
 
       if (!onboardingDone) return AppRoutes.onboarding;

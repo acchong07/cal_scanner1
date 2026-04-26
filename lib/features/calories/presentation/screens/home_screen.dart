@@ -1,64 +1,21 @@
 import 'package:cal_scanner/features/calories/presentation/cubit/food_log_cubit.dart';
+import 'package:cal_scanner/features/calories/presentation/cubit/food_log_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+
 import '../widgets/daily_tracker.dart';
 import '../widgets/meal_list.dart';
 import '../widgets/alert_message_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Widget? child;
+  const HomeScreen({super.key, this.child});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final picker = ImagePicker();
-  File? _image;
-
-  Future<void> getImage(ImageSource source) async {
-    final pickedFile = await picker.pickImage(source: source, maxWidth: 600);
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-      scanImage();
-    }
-  }
-
-  void scanImage() async {
-    context.read<FoodLogCubit>().addMealFromImage(_image!);
-  }
-
-  void showImageSourceActionSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Wrap(
-        children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.camera_alt),
-            title: Text('Camera'),
-            onTap: () {
-              Navigator.pop(context);
-              getImage(ImageSource.camera);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.photo_library),
-            title: Text('Gallery'),
-            onTap: () {
-              Navigator.pop(context);
-              getImage(ImageSource.gallery);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showImageSourceActionSheet(context),
+        onPressed: () => context.read<FoodLogCubit>().pickAndScanImage(),
         child: Icon(Icons.add_a_photo),
       ),
     );
