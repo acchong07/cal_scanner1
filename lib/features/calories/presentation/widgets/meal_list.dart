@@ -2,7 +2,7 @@ import 'package:cal_scanner/features/calories/presentation/screens/meal_detail_s
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/food_item.dart';
-import '../../../onboarding/presentation/cubit/food_log_cubit.dart';
+import '../cubit/food_log_cubit.dart';
 import 'meal_list_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

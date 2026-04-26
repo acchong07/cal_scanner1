@@ -7,7 +7,7 @@ import 'features/calories/data/repositories/food_repository.dart';
 import 'features/calories/data/services/food_service.dart';
 import 'features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'imports/imports.dart';
-import 'features/onboarding/presentation/cubit/food_log_cubit.dart';
+import 'features/calories/presentation/cubit/food_log_cubit.dart';
 import 'theme/app_typography.dart';
 import 'theme/theme.dart';
 
