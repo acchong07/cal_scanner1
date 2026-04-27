@@ -1,6 +1,8 @@
+import 'package:cal_scanner/imports/imports.dart';
+import 'package:cal_scanner/theme/app_colors.dart';
+import 'package:cal_scanner/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../onboarding/data/local/preference_manager.dart';
 import '../../../onboarding/data/models/user_data.dart';
@@ -44,75 +46,69 @@ class _DailyTrackerState extends State<DailyTracker> {
   Widget build(BuildContext context) {
     final targetCalories = userData?.estimatedCalories.toDouble() ?? 2000.0;
 
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 8,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.green.shade50,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Text(
-              'Daily Calorie Goal: ${userData?.estimatedCalories ?? 2000} kcal',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 16),
-          CircularPercentIndicator(
-            radius: 80.0,
-            lineWidth: 8.0,
-            percent: widget.calories / targetCalories,
-            center: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.local_fire_department, color: Colors.orange),
-                Text(
-                  '${widget.calories.toInt()} kcal',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            progressColor: Colors.orange,
-          ),
-          SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Column(
+      children: [
+        // Container(
+        //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        //   decoration: BoxDecoration(
+        //     color: Color(0xFFB8C7CB),
+        //     borderRadius: BorderRadius.circular(16),
+        //   ),
+        //   child: Text(
+        //     'Daily Calorie Goal: ${userData?.estimatedCalories ?? 2000} kcal',
+        //     style: TextStyle(fontWeight: FontWeight.bold),
+        //   ),
+        // ),
+        CircularPercentIndicator(
+          backgroundColor: AppColors.kPrimaryGrey,
+          radius: 90.sp,
+          lineWidth: 14.0,
+          percent: widget.calories / targetCalories,
+          center: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              MacroIndicator(
-                label: 'Protein',
-                value: widget.protein,
-                goal: (userData?.proteinGoal ?? 0).toDouble(),
-                color: Colors.green,
+              // Icon(Icons.local_fire_department, color: Colors.orange),
+              Text(
+                widget.calories.toInt().toString(),
+                style: AppTypography.displayLarge,
               ),
-              MacroIndicator(
-                label: 'Fats',
-                value: widget.fat,
-                goal: (userData?.fatGoal ?? 0).toDouble(),
-                color: Colors.orange,
-              ),
-              MacroIndicator(
-                label: 'Carbs',
-                value: widget.carbs,
-                goal: (userData?.carbsGoal ?? 0).toDouble(),
-                color: Colors.amber,
+              SizedBox(height: 5.h),
+
+              Text(
+                'of ${targetCalories.toInt()} kcal',
+                style: AppTypography.titleMedium.copyWith(
+                  color: AppColors.kgrey,
+                ),
               ),
             ],
           ),
-        ],
-      ),
+          progressColor: Colors.orange,
+        ),
+        SizedBox(height: 24),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            MacroIndicator(
+              label: 'Protein',
+              value: widget.protein,
+              goal: (userData?.proteinGoal ?? 0).toDouble(),
+              color: Colors.green,
+            ),
+            MacroIndicator(
+              label: 'Fats',
+              value: widget.fat,
+              goal: (userData?.fatGoal ?? 0).toDouble(),
+              color: Colors.orange,
+            ),
+            MacroIndicator(
+              label: 'Carbs',
+              value: widget.carbs,
+              goal: (userData?.carbsGoal ?? 0).toDouble(),
+              color: Colors.amber,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

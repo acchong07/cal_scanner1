@@ -9,4 +9,5 @@ class AppColors {
 
   static Color kWhite = Color.fromARGB(255, 255, 255, 255);
   static Color kgrey = Colors.grey;
+  static Color kPrimaryGrey = Color.fromARGB(255, 232, 232, 232);
 }

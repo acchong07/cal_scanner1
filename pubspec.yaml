@@ -47,7 +47,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   timeago: ^3.7.1
   dartz: ^0.10.1
-  flutter_gemini: ^3.0.0
+
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.4
   cached_network_image: ^3.4.1

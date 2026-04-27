@@ -1,3 +1,5 @@
+import 'package:cal_scanner/imports/imports.dart';
+import 'package:cal_scanner/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -25,12 +27,12 @@ class MacroIndicator extends StatelessWidget {
           width: 80,
           lineHeight: 8,
           percent: (value / goal).clamp(0.0, 1.0),
-          backgroundColor: Colors.grey[200],
+          backgroundColor: AppColors.kPrimaryGrey,
           progressColor: color,
           padding: EdgeInsets.zero,
           barRadius: Radius.circular(4),
         ),
-        SizedBox(height: 4),
+        SizedBox(height: 5.h),
         Text(
           '${value.toInt()}/${goal.toInt()}g',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),

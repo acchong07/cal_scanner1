@@ -2,47 +2,64 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/food_item.dart';
 
 class FoodService {
-  final String _model = 'gemini-1.5-pro';
+  String get _apiKey => dotenv.env['GROQ_API_KEY'] ?? '';
 
-  // Load the API key from the environment
-  String get _apiKey => dotenv.env['GOOGLE_AI_API_KEY'] ?? '';
-
-  // Initialize Gemini in the constructor
-  FoodService() {
-    if (_apiKey.isEmpty) {
-      throw Exception('Google AI API key not found in environment variables');
-    }
-
-    // Initialize the Gemini instance
-    Gemini.init(apiKey: _apiKey);
-  }
   Future<Either<String, FoodItem>> detectFoodAndCalories(File imageFile) async {
     try {
       if (!imageFile.existsSync()) {
         return Left('File not found: ${imageFile.path}');
       }
 
-      final response = await Gemini.instance.textAndImage(
-        text:
-            'Analyze this image and identify the food. '
-            'Estimate its calories, protein, carbs, and fat. '
-            'Return JSON in this format: {"name": "food name", "calories": 100, "protein": 10, "carbs": 20, "fat": 5}',
-        images: [imageFile.readAsBytesSync()],
+      final imageBytes = await imageFile.readAsBytes();
+      final base64Image = base64Encode(imageBytes);
+
+      final response = await http.post(
+        Uri.parse('https://api.groq.com/openai/v1/chat/completions'),
+        headers: {
+          'Authorization': 'Bearer $_apiKey',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'model':
+              'meta-llama/llama-4-scout-17b-16e-instruct', // free vision model
+          'messages': [
+            {
+              'role': 'user',
+              'content': [
+                {
+                  'type': 'image_url',
+                  'image_url': {'url': 'data:image/jpeg;base64,$base64Image'},
+                },
+                {
+                  'type': 'text',
+                  'text':
+                      'Analyze this image and identify the food. '
+                      'Estimate its calories, protein, carbs, and fat. '
+                      'Return JSON only, no markdown, no explanation, in this exact format: '
+                      '{"name": "food name", "calories": 100, "protein": 10, "carbs": 20, "fat": 5}',
+                },
+              ],
+            },
+          ],
+          'max_tokens': 200,
+        }),
       );
 
-      final output = response?.output;
-      if (output == null || output.isEmpty) {
-        return Left('No response output from Gemini API');
+      if (response.statusCode != 200) {
+        return Left('API error: ${response.body}');
       }
 
-      final match = RegExp(r'\{.*\}').firstMatch(output);
+      final data = jsonDecode(response.body);
+      final output = data['choices'][0]['message']['content'] as String;
+
+      final match = RegExp(r'\{.*\}', dotAll: true).firstMatch(output);
       if (match == null) {
-        return Left('No valid JSON found in output: $output');
+        return Left('No valid JSON found in response: $output');
       }
 
       final foodData = jsonDecode(match.group(0)!);
@@ -51,10 +68,10 @@ class FoodService {
         FoodItem(
           id: DateTime.now().millisecondsSinceEpoch.toString(),
           name: foodData['name'],
-          calories: foodData['calories'].toDouble(),
-          protein: foodData['protein'].toDouble(),
-          carbs: foodData['carbs'].toDouble(),
-          fat: foodData['fat'].toDouble(),
+          calories: (foodData['calories'] as num).toDouble(),
+          protein: (foodData['protein'] as num).toDouble(),
+          carbs: (foodData['carbs'] as num).toDouble(),
+          fat: (foodData['fat'] as num).toDouble(),
           quantity: 100.0,
           timestamp: DateTime.now(),
         ),
