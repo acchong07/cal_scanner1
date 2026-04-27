@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onVisible: () => Future.delayed(
-                            Duration(seconds: 20),
+                            Duration(seconds: 2),
                             () => context.read<FoodLogCubit>().clearMessages(),
                           ),
                         ),
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read<FoodLogCubit>().pickAndScanImage(),
+        onPressed: () => context.read<FoodLogCubit>().pickAndScanImage(context),
         child: Icon(Icons.add_a_photo),
       ),
     );

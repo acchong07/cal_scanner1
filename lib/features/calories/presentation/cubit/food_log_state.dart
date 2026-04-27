@@ -14,6 +14,8 @@ class FoodLogState {
   final String? successMessage;
   // Image Picking
   final File? selectedImage;
+  final bool isScanning; // NEW
+  final FoodItem? scannedMeal;
 
   const FoodLogState({
     this.meals = const [],
@@ -26,6 +28,8 @@ class FoodLogState {
     this.error,
     this.successMessage,
     this.selectedImage,
+    this.scannedMeal,
+    this.isScanning = false,
   });
 
   FoodLogState copyWith({
@@ -39,6 +43,8 @@ class FoodLogState {
     String? error,
     String? successMessage,
     File? selectedImage,
+    bool? isScanning,
+    FoodItem? scannedMeal,
   }) {
     return FoodLogState(
       meals: meals ?? this.meals,
@@ -51,6 +57,8 @@ class FoodLogState {
       error: error ?? this.error,
       successMessage: successMessage ?? this.successMessage,
       selectedImage: selectedImage ?? this.selectedImage,
+      isScanning: isScanning ?? this.isScanning,
+      scannedMeal: scannedMeal ?? this.scannedMeal,
     );
   }
 }

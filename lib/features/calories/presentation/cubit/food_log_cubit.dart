@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cal_scanner/features/calories/presentation/cubit/food_log_state.dart';
+import 'package:cal_scanner/features/calories/presentation/screens/scan_result_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../data/models/food_item.dart';
@@ -13,12 +15,24 @@ class FoodLogCubit extends Cubit<FoodLogState> {
     : _picker = picker ?? ImagePicker(),
       super(FoodLogState());
 
-  Future<void> pickAndScanImage() async {
+  Future<void> pickAndScanImage(BuildContext context) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
 
     final image = File(pickedFile.path);
-    emit(state.copyWith(selectedImage: image));
+    emit(state.copyWith(selectedImage: image, isScanning: true));
+    // await Future.delayed(const Duration(seconds: 1));
+    if (context.mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: this, // Pass existing cubit
+            child: ScanResultScreen(imageFile: image),
+          ),
+        ),
+      );
+    }
     await addMealFromImage(image);
   }
 
@@ -82,7 +96,7 @@ class FoodLogCubit extends Cubit<FoodLogState> {
   }
 
   Future<void> addMealFromImage(File image) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isScanning: true));
     final result = await _repository.detectFoodFromImage(image);
     result.fold(
       (failure) {
@@ -91,19 +105,21 @@ class FoodLogCubit extends Cubit<FoodLogState> {
           state.copyWith(
             error: failure,
             successMessage: null,
-            isLoading: false,
+            isScanning: false,
           ),
         );
       },
       (meal) async {
-        await addMeal(meal);
+        await _repository.addFoodItem(meal);
+        await loadDailyLog();
+        // await addMeal(meal);
         // Emit success message
         emit(
           state.copyWith(
+            scannedMeal: meal,
+            isScanning: false,
             error: null,
-            successMessage:
-                'Food "${meal.name}" detected successfully and added to the log.',
-            isLoading: false,
+            successMessage: 'Food "${meal.name}" detected successfully',
           ),
         );
       },
