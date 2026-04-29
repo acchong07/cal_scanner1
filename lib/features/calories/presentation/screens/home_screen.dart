@@ -1,5 +1,4 @@
 // home_screen.dart
-import 'dart:async';
 
 import 'package:cal_scanner/core/extensions/widget_extension.dart';
 import 'package:cal_scanner/features/calories/presentation/cubit/food_log_cubit.dart';
@@ -15,8 +14,7 @@ import '../widgets/daily_tracker.dart';
 import '../widgets/meal_list.dart';
 
 class HomeScreen extends StatefulWidget {
-  final Widget? child;
-  const HomeScreen({super.key, this.child});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

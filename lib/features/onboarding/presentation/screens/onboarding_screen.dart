@@ -1,4 +1,5 @@
 import 'package:cal_scanner/app_widgets/buttons/app_button.dart';
+import 'package:cal_scanner/app_widgets/buttons/back_button.dart';
 import 'package:cal_scanner/core/extensions/widget_extension.dart';
 import 'package:cal_scanner/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:cal_scanner/features/onboarding/presentation/screens/widgets/activity_widget.dart';
@@ -69,21 +70,9 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                 maintainSize: true,
                 maintainAnimation: true,
                 maintainState: true,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: IconButton(
-                    onPressed: _previousPage,
-                    icon: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.kWhite,
-                        border: Border.all(color: AppColors.kgrey),
-                      ),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                ),
+                child: AppBackButton(
+                  onPressed: () => _previousPage(),
+                ).paddingOnly(right: 10),
               ),
               Expanded(
                 child: LinearProgressIndicator(

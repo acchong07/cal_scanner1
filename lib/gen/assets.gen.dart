@@ -17,11 +17,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/splash.png
+  AssetGenImage get splash => const AssetGenImage('assets/images/splash.png');
+
   /// File path: assets/images/tray.png
   AssetGenImage get tray => const AssetGenImage('assets/images/tray.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logo, tray];
+  List<AssetGenImage> get values => [logo, splash, tray];
 }
 
 class $AssetsOnboardingGen {

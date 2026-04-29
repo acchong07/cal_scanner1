@@ -26,17 +26,13 @@ class AppRouter {
         name: AppRoutes.onboarding,
         builder: (context, state) => const OnboardingScreen(),
       ),
-      ShellRoute(
-        builder: (context, state, child) => HomeScreen(child: child),
+      GoRoute(
+        path: AppRoutes.main,
+        name: AppRoutes.main,
+        builder: (context, state) => const HomeScreen(), // ← no child needed
         routes: [
           GoRoute(
-            path: AppRoutes.main,
-            name: AppRoutes.main,
-            builder: (context, state) => HomeScreen(),
-          ),
-
-          GoRoute(
-            path: AppRoutes.settings,
+            path: 'settings', // becomes /main/settings
             name: AppRoutes.settings,
             builder: (context, state) => const SettingsScreen(),
           ),
@@ -47,9 +43,7 @@ class AppRouter {
       final onboardingDone = prefs.getBool('onboarding_complete') ?? false;
       final location = state.matchedLocation;
       final isSplash = location == AppRoutes.splash;
-
       if (isSplash) return null;
-
       if (!onboardingDone) return AppRoutes.onboarding;
       return null;
     },

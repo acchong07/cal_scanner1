@@ -1,4 +1,6 @@
+import 'package:cal_scanner/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +34,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: FlutterLogo(size: 100)));
+    return Scaffold(
+      body: Center(
+        child: ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(1000),
+          child: Image.asset(Assets.images.splash.path, height: 130.h),
+        ),
+      ),
+    );
   }
 }

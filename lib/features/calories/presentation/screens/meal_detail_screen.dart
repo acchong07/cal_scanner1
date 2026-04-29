@@ -1,3 +1,4 @@
+import 'package:cal_scanner/app_widgets/buttons/back_button.dart';
 import 'package:cal_scanner/core/extensions/capital_first_extension.dart';
 import 'package:cal_scanner/core/extensions/widget_extension.dart';
 import 'package:cal_scanner/features/calories/presentation/cubit/food_log_cubit.dart';
@@ -45,22 +46,10 @@ class MealDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.kScaffold,
       appBar: AppBar(
-        leadingWidth: 70.w,
         centerTitle: true,
         backgroundColor: AppColors.kScaffold,
         iconTheme: IconThemeData(color: Colors.black),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.kWhite,
-              border: Border.all(color: AppColors.kgrey),
-            ),
-            child: const Icon(Icons.arrow_back),
-          ),
-        ).paddingOnly(left: 10),
+        leading: AppBackButton(),
         actions: [
           IconButton(
             icon: Icon(CupertinoIcons.delete, color: Colors.red),

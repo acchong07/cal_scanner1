@@ -22,7 +22,6 @@ class FoodLogCubit extends Cubit<FoodLogState> {
 
     final image = File(pickedFile.path);
     emit(state.copyWith(selectedImage: image, isScanning: true));
-    await Future.delayed(const Duration(milliseconds: 500));
     if (context.mounted) {
       Navigator.push(
         context,
@@ -34,6 +33,7 @@ class FoodLogCubit extends Cubit<FoodLogState> {
         ),
       );
     }
+    await Future.delayed(const Duration(milliseconds: 300));
 
     await addMealFromImage(image);
   }

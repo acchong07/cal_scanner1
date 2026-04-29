@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cal_scanner/app_widgets/buttons/back_button.dart';
 import 'package:cal_scanner/core/extensions/capital_first_extension.dart';
 import 'package:cal_scanner/core/extensions/num_extension.dart';
 import 'package:cal_scanner/core/extensions/widget_extension.dart';
@@ -101,10 +102,7 @@ class _ScanResultScreenState extends State<ScanResultScreen> {
           backgroundColor: AppColors.kScaffold,
           appBar: AppBar(
             backgroundColor: AppColors.kScaffold,
-            leading: IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () => Navigator.pop(context),
-            ),
+            leading: AppBackButton(),
             centerTitle: false,
           ),
           body: SafeArea(
