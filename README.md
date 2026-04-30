@@ -8,9 +8,9 @@ Cal AI is a Flutter mobile app that uses artificial intelligence to make calorie
 
 ## 📸 Screenshots
 
-|          Home Screen          |      Meal Log      | Nutrition Summary  |
-| :---------------------------: | :----------------: | :----------------: |
-| _(assets/screenshots/o1.png)_ | _(Add screenshot)_ | _(Add screenshot)_ |
+|                Home Screen                |                Meal Log                |                Nutrition Summary                |
+| :---------------------------------------: | :------------------------------------: | :---------------------------------------------: |
+| ![Home Screen](assets/screenshots/o1.png) | ![Meal Log](assets/screenshots/o2.png) | ![Nutrition Summary](assets/screenshots/o3.png) |
 
 > 💡 **Tip:** Drop your screenshots into a `/screenshots` folder and update the paths above.
 
