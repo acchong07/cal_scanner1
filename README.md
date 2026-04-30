@@ -2,7 +2,7 @@
 
 <br>
 
- <img src="assets/images/splash.png" width="140"/>
+ <img src="assets/screenshots/main.png" width="140"/>
 
 # Cal AI
 
