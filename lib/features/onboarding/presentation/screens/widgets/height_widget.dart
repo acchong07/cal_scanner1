@@ -18,14 +18,14 @@ class _HeightWeightWidgetState extends State<HeightWeightWidget> {
   // Default selections
   int _selectedFeet = 5;
   int _selectedInches = 7;
-  int _selectedWeight = 70;
+  int _selectedWeight = 150;
 
   static const int _minFeet = 3;
   static const int _maxFeet = 7;
   static const int _minInches = 0;
   static const int _maxInches = 11;
-  static const int _minWeight = 40;
-  static const int _maxWeight = 200;
+  static const int _minWeight = 80;
+  static const int _maxWeight = 400;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _HeightWeightWidgetState extends State<HeightWeightWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final height = double.parse('$_selectedFeet.$_selectedInches');
       context.read<OnboardingCubit>().updateHeight(height);
-      context.read<OnboardingCubit>().updateWeight(_selectedWeight.toDouble());
+      context.read<OnboardingCubit>().updateWeight(_selectedWeight / 2.20462);
     });
   }
 
@@ -132,14 +132,14 @@ class _HeightWeightWidgetState extends State<HeightWeightWidget> {
                     child: _ScrollPicker(
                       items: List.generate(
                         _maxWeight - _minWeight + 1,
-                        (i) => '${i + _minWeight} kg',
+                        (i) => '${i + _minWeight} lbs',
                       ),
                       initialIndex: _selectedWeight - _minWeight,
                       onChanged: (i) {
                         final newWeight = i + _minWeight;
                         setState(() => _selectedWeight = newWeight);
                         context.read<OnboardingCubit>().updateWeight(
-                          newWeight.toDouble(),
+                          newWeight / 2.20462,
                         );
                       },
                     ),
@@ -163,7 +163,7 @@ class _HeightWeightWidgetState extends State<HeightWeightWidget> {
             ),
             child: Center(
               child: Text(
-                '$_selectedFeet . $_selectedInches  :  $_selectedWeight kg',
+                '$_selectedFeet . $_selectedInches  :  $_selectedWeight lbs',
                 style: AppTypography.bodyLarge.copyWith(color: Colors.white),
               ),
             ),
