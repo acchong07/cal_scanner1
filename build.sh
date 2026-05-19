@@ -10,5 +10,8 @@ export PATH="$PATH:`pwd`/flutter/bin"
 echo "Running flutter doctor..."
 flutter doctor -v
 
+echo "Creating .env file for Flutter..."
+echo "GROK_API_KEY=$GROK_API_KEY" > .env
+
 echo "Building Flutter Web..."
 flutter build web --release
